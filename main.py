@@ -1,19 +1,18 @@
-import mysql.connector
+import random 
 from rich import print as printc
+import string
 
-try:
-    mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        password = "root",
-        database = "password_manager"
-    ) 
-    printc("[green][ 🗸] Database connected.[/green]")
-    mycursor = mydb.cursor()
+l1 = list(string.ascii_lowercase)
+l2 = list(string.ascii_uppercase)
+l3 = list(string.digits)
+l4 = list(string.punctuation)
 
-    query = "CREATE TABLE pm ( site_name VARCHAR(225) NOT NULL, user_id VARCHAR(225), mail_id VARCHAR(225), password VARCHAR(225) NOT NULL, hashkey VARCHAR(225) NOT NULL, note VARCHAR(225))"
-    mycursor.execute(query)
+condition = False
+def passLen():
+    length = int(input("Character length (even): "))
+    while (length%2) != 0:
+        printc("[red][x] Invalid input.[/red] ")
+    
 
-except Exception as e:
-    printc(f"[red]{e}[/red]")
-
+print(passLen())
+    
