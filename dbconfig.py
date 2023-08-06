@@ -11,7 +11,7 @@ try:
     printc("[green][ 🗸] Database connected.[/green]")
     mycursor = mydb.cursor()
 
-    query = "SHOW TABLES"
+    query = ""
     mycursor.execute(query)
 
 except Exception as e:
