@@ -1,6 +1,7 @@
 # Requirements:
 - MySQL connector: python -m pip install MySQL-connector-python.
 - Rich module: python -m pip install rich.
+- Cryptography module: pip install cryptography
 
 # File system
 - dbconfig.py is for database connection.
