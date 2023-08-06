@@ -6,3 +6,4 @@
 # File system
 - dbconfig.py is for database connection.
 - passGen.py is used for password generation.
+- cryptoGraphy.py is for encryption and decryption
