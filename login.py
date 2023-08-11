@@ -26,6 +26,21 @@ def login():
     return logged_in, userID
 
 def createAccount():
-    userID = input("User_ID: ")
-    masterPassword = maskpass.askpass(prompt="Master_Password: ", mask='*')
-    masterPassword1 = maskpass.askpass(prompt="Re-enter Master_Password: ", mask='*')
+    status = False
+    while status is False:
+        userID = input("User_ID: ")
+        if not userID:
+            printc("[red][x] User_ID cannot be empty![/red]")
+        elif userID:
+            masterPassword = maskpass.askpass(prompt="Master_Password: ", mask='*')
+            if not masterPassword:
+                printc("[red][x] Master_Password cannot be empty![/red]")
+            elif masterPassword:
+                masterPassword1 = maskpass.askpass(prompt="Re-enter Master_Password: ", mask='*')
+                if masterPassword == masterPassword1:
+                    status = True
+                    printc(f"[green][+] Account created. Your User_ID is {userID}[/green]")
+                elif masterPassword != masterPassword1:
+                    printc("[red][x] The re-entered Master_Password does not match. Please try again... [/red]")
+        
+

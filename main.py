@@ -7,11 +7,11 @@ from login import login, createAccount
 def logged_in(userID):
     print(userID)
     userInput= input("""
-    Hello, how may I help you today?
-    1. Delete all passwords.
-    2. Quit.
+Hello, how may I help you today?
+1. Delete all passwords.
+2. Quit.
 
-    Enter your choice (1/2): """)
+Enter your choice (1/2): """)
     
     if userInput == "1":
         dropDB()
@@ -20,7 +20,8 @@ def logged_in(userID):
         printc("[green]Thankyou, have a nice day.[/green]")
 
         
-userInput= input("""
+def mainMenu():
+    userInput= input("""
 Hello, how may I help you today?
 1. Install.
 2. Login.
@@ -28,17 +29,23 @@ Hello, how may I help you today?
 4. Quit.
 
 Enter your choice (1/2/3/4): """)
+    return userInput
 
-if userInput == "1":
-    createDB()
-elif userInput == "2":
-    loginStatus, userID = login()
-    if loginStatus:
-        logged_in(userID)
-elif userInput == "3":
-    createAccount()
-elif userInput == "4":
-    printc("[green]Thankyou, have a nice day.[/green]")
+
+runningStatus = True
+while runningStatus is True:
+    userInput = mainMenu()
+    if userInput == "1":
+        createDB()
+    elif userInput == "2":
+        loginStatus, userID = login()
+        if loginStatus:
+            logged_in(userID)
+    elif userInput == "3":
+        createAccount()
+    elif userInput == "4":
+        runningStatus = False
+        printc("[green]Thankyou, have a nice day.[/green]")
 
 
     
