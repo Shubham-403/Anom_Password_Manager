@@ -29,7 +29,7 @@ def createDB():
                 printc("[yellow][!] Database already exits.[/yellow]")
             status = False
     if status:
-        printc("[gree][+] Installation completed. You're ready to use APM![/green]")
+        printc("[green][+] Installation completed. You're ready to use APM![/green]")
     else:
         printc("[red] [x]Installation failed.[/red]")
     mydb.close()
@@ -84,11 +84,40 @@ class updateDB:
             mycursor.execute(query, (user, password))
             result = mycursor.fetchone()
             if result:
-                printc(f"[green]Verified. Hello {user}.[/green]")
                 return True
             else:
                 printc("[red][x]Access denied.[/red]")
                 return False
         except Exception as e:
-            printc(f"[red]e[/red]")
+            printc(f"[red]{e}[/red]")
+        mydb.close()
+
+    def DBCheck(self):
+        mydb = connectDB()
+        mycursor = mydb.cursor()
+        status = None
+        try:
+            mycursor.execute("USE userpass")
+            status = True
+        except errors.DatabaseError as e:
+            if e.errno == 1049 :
+                status = False
+        return status
+        mydb.close()
+
+
+    def userDataCheck(self):
+        mydb = connectDB()
+        mycursor = mydb.cursor()
+        try:
+            mycursor.execute("USE userpass")
+            mycursor.execute("SELECT * FROM userlist")
+            result = mycursor.fetchone()
+            if result:
+                return True
+            else:
+                return "None"
+        except errors.DatabaseError as e:
+            if e.errno == 1049:
+                return "NoDB"
         mydb.close()
