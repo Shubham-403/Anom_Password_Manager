@@ -4,48 +4,49 @@ from cryptoGraphy import encryption, decryption
 from rich import print as printc
 from login import login, createAccount
 
-def logged_in(userID):
-    print(userID)
-    userInput= input("""
-Hello, how may I help you today?
-1. Delete all passwords.
-2. Quit.
+def loginPg():
+    printc("-----[bold cyan]Welcome to the Anom Password Manager(APM)![/bold cyan]-----")
+    print("Hello, how may I assist you today?")
+    print("[1] Install Password Manager.")
+    print("[2] Login.")
+    print("[3] Create an Account.")
+    print("[4] Quit.")
+    userInput = input("Please select an option (1/2/3/4): ")
+    return userInput
 
-Enter your choice (1/2): """)
+def logged_in_pg(userID):
+    printc(f"Welcome, {userID}")
+    print("[1] Delete all passwords.")
+    print("[2] Sign out.")
+    print("[3] Quit.")
+    userInput = input("Please select an option (1/2/3): ")
     
     if userInput == "1":
         dropDB()
-    elif userInput == "2":
+    elif userInput == "3":
         printc("[green][ 🗸] Logged out.[/green]")
-        printc("[green]Thankyou, have a nice day.[/green]")
+        printc("[bold]Thank you for using Anom Password Manager. Goodbye![/bold]")
+    else:
+        printc("[yellow] [x]Invalid input.[/yellow]")
 
-        
-def mainMenu():
-    userInput= input("""
-Hello, how may I help you today?
-1. Install.
-2. Login.
-3. Creating Account.
-4. Quit.
-
-Enter your choice (1/2/3/4): """)
-    return userInput
 
 
 runningStatus = True
 while runningStatus is True:
-    userInput = mainMenu()
+    userInput = loginPg()
     if userInput == "1":
         createDB()
     elif userInput == "2":
         loginStatus, userID = login()
         if loginStatus:
-            logged_in(userID)
+            logged_in_pg(userID)
     elif userInput == "3":
         createAccount()
     elif userInput == "4":
         runningStatus = False
-        printc("[green]Thankyou, have a nice day.[/green]")
+        printc("[bold]Thank you for using Anom Password Manager. Goodbye![/bold]")
+    else:
+        printc("[red][x] Invalid option. Please choose a valid option (1/2/3/4).[/red]")
 
 
     

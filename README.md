@@ -9,3 +9,7 @@
 - passGen.py is used for password generation.
 - cryptoGraphy.py is for encryption and decryption
 - login.py is for login 
+
+
+# Common problems:
+- If Database exists and you don't need it anymore you can login and delete all the passwords.
