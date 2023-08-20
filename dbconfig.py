@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import errors
 from rich import print as printc
+
 def connectDB():
     try:
         mydb = mysql.connector.connect(
@@ -27,9 +28,11 @@ def createDB():
         except errors.DatabaseError as e:
             if e.errno == 1007:
                 printc("[yellow][!] Database already exits.[/yellow]")
-            status = False
-    if status:
+            status = "None"
+    if status is True:
         printc("[green][+] Installation completed. You're ready to use APM![/green]")
+    elif status == "None":
+        pass
     else:
         printc("[red] [x]Installation failed.[/red]")
     mydb.close()

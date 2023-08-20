@@ -4,6 +4,7 @@ from cryptoGraphy import encryption, decryption
 from rich import print as printc
 from login import login
 import os
+from pipconfig import installReq
 class main:
 
     def clearTerminal(self):
@@ -50,6 +51,8 @@ class main:
         while runningStatus is True:
             userInput = self.loginPg()
             if userInput == "1":
+                obj = installReq()
+                obj.installPackages()
                 createDB()
             elif userInput == "2":
                 obj = login()
