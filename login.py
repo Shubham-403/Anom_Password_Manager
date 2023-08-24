@@ -1,7 +1,7 @@
 from rich import print as printc
 import maskpass
 from dbconfig import updateDB
-
+from cryptoGraphy import cryptoGraphy
 class login:
     def loginAuth(self):
         updater = updateDB()
@@ -56,6 +56,8 @@ class login:
         elif results is False:
             printc("[yellow][!] Database doesn't exist. Please install the software from the homepage.[/yellow]")
         if status == True:
-            updater.update(userID, masterPassword)
+            key = cryptoGraphy.genKey()
+            encrypted_masterPassword = cryptoGraphy.encrypt(key, masterPassword)
+            updater.update(userID, encrypted_masterPassword, key)
             
 

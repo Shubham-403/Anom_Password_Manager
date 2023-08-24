@@ -1,6 +1,6 @@
 from dbconfig import createDB, dropDB
 from passGen import passGen, passLen
-from cryptoGraphy import encryption, decryption
+from cryptoGraphy import cryptoGraphy
 from rich import print as printc
 from login import login
 import os
@@ -52,7 +52,7 @@ class main:
             userInput = self.loginPg()
             if userInput == "1":
                 obj = installReq()
-                obj.installPackages()
+                #obj.installPackages()
                 createDB()
             elif userInput == "2":
                 obj = login()
@@ -88,15 +88,13 @@ if __name__ == "__main__":
 
 
 
-# password = passGen(passLen())
-# print(password)
+# text = "shubham"
+# key = cryptroGraphy.genKey()
+# encryptedText = cryptroGraphy.encrypt(key, text)
+# print(encryptedText)
+# decryptedText = cryptroGraphy.decrypt(key, encryptedText)
+# print(decryptedText)
 
-# hash, key = encryption(password)
-# print(hash)
-# print(key)
-
-# decript = decryption(key, hash)
-# print(decript)
 
 
 # userInput = loginPg()

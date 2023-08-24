@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import errors
 from rich import print as printc
-
+from cryptoGraphy import cryptoGraphy
 def connectDB():
     try:
         mydb = mysql.connector.connect(
@@ -18,8 +18,8 @@ def createDB():
     mycursor = mydb.cursor()
     comList = ["CREATE DATABASE userpass",
                "USE userpass",
-               "CREATE TABLE userlist(user VARCHAR(225), password VARCHAR(225), PRIMARY KEY (user))",
-               "CREATE TABLE passlist(user VARCHAR(225),webName VARCHAR(225) NOT NULL, url VARCHAR(225) NOT NULL, mail VARCHAR(225) NOT NULL, id VARCHAR(225) NOT NULL, password VARCHAR(225) NOT NULL, note VARCHAR(225), encryptionKey VARCHAR(225) NOT NULL, FOREIGN KEY (user) REFERENCES userlist(user))" 
+               "CREATE TABLE userlist(user VARCHAR(225), password VARCHAR(225), cryptographyKey VARCHAR(225), PRIMARY KEY (user))",
+               "CREATE TABLE passlist(user VARCHAR(225),webName VARCHAR(225) NOT NULL, url VARCHAR(225) NOT NULL, mail VARCHAR(225) NOT NULL, id VARCHAR(225) NOT NULL, password VARCHAR(225) NOT NULL, note VARCHAR(225), FOREIGN KEY (user) REFERENCES userlist(user))" 
                ]
     for query in comList:
         try:
@@ -49,11 +49,11 @@ def dropDB():
             printc(f"[red]{e}[/red]")
     mydb.close()
 class updateDB:
-    def update(self, user, password):
+    def update(self, user, password, key):
         mydb = connectDB()
         mycursor = mydb.cursor()
-        sql = "INSERT INTO userlist (user, password) VALUES (%s, %s)"
-        val = (user, password)
+        sql = "INSERT INTO userlist (user, password, cryptographyKey) VALUES (%s, %s, %s)"
+        val = (user, password, key)
         try:
             mycursor.execute("USE userpass")
             mycursor.execute(sql, val)
@@ -83,10 +83,11 @@ class updateDB:
         mycursor = mydb.cursor()
         try:
             mycursor.execute("USE userpass")
-            query = "SELECT * FROM userlist WHERE user = %s AND password = %s"
+            query = "SELECT * FROM userlist WHERE user = %s"
             mycursor.execute(query, (user, password))
-            result = mycursor.fetchone()
-            if result:
+            userDB, passwordDB, cryptograhyKeyDB = mycursor.fetchone()
+            decryptedPass = cryptoGraphy.decrypt(cryptograhyKeyDB, passwordDB)
+            if password == decryptedPass:
                 return True
             else:
                 printc("[red][x]Access denied.[/red]")
