@@ -1,6 +1,6 @@
 # Anom Password Manager
 
-Welcome to the Anom Password Manager GitHub project!
+Welcome to the Anom Password Manager!
 
 ## Requirements:
 
