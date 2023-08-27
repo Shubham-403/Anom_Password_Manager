@@ -1,7 +1,8 @@
 import mysql.connector
-from mysql.connector import errors
 from rich import print as printc
+from mysql.connector import errors
 from cryptoGraphy import cryptoGraphy
+
 def connectDB():
     try:
         mydb = mysql.connector.connect(
@@ -48,6 +49,7 @@ def dropDB():
         except Exception as e:
             printc(f"[red]{e}[/red]")
     mydb.close()
+
 class updateDB:
     def update(self, user, password, key):
         mydb = connectDB()
@@ -148,9 +150,16 @@ class updatePassDB():
             val = (user, encrypted_webName, encrypted_url, encrypted_mail, encrypted_id, encrypted_password, dencrypted_note)
             mycursor.execute("USE userpass")
             mycursor.execute(sql, val)
-
+            status = True
         except Exception as e:
             printc(f"[red]{e}[/red]")
-            
+
         mydb.commit()
         mydb.close()
+
+        if status:
+            return True
+        else:
+            return False
+        
+        

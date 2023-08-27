@@ -1,7 +1,9 @@
-from rich import print as printc
 import maskpass
+from rich import print as printc
+
 from dbconfig import updateDB
 from cryptoGraphy import cryptoGraphy
+
 class login:
     def loginAuth(self):
         updater = updateDB()
@@ -50,7 +52,6 @@ class login:
                         masterPassword1 = maskpass.askpass(prompt="Re-enter your Master_Password: ", mask='*')
                         if masterPassword == masterPassword1:
                             status = True
-                            printc(f"[green][+] Account created successfully. Welcome to Anom Password Manager, {userID}![/green]")
                         elif masterPassword != masterPassword1:
                             printc("[red][x] The re-entered Master_Password does not match. Please try again... [/red]")
         elif results is False:
@@ -59,5 +60,6 @@ class login:
             key = cryptoGraphy.genKey()
             encrypted_masterPassword = cryptoGraphy.encrypt(key, masterPassword)
             updater.update(userID, encrypted_masterPassword, key)
+        return status, userID
             
 
