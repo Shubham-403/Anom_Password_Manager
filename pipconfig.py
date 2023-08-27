@@ -3,7 +3,7 @@ from rich import print as printc
 
 class installReq():
     def installPackages(self):
-        packList = ["MySQL-connector-python", "rich", "cryptography", "maskpass"]
+        packList = ["MySQL-connector-python", "rich", "cryptography", "maskpass", "pyperclip"]
         for package in packList:
             try:
                 subprocess.check_call(["pip", "install", package])

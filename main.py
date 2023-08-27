@@ -1,4 +1,5 @@
 import os
+import pyperclip
 from rich import print as printc
 
 from login import login
@@ -93,7 +94,7 @@ class main:
             userInput = self.loginPg()
             if userInput == "1":
                 obj = installReq()
-                #obj.installPackages()
+                obj.installPackages()
                 createDB()
             elif userInput == "2":
                 obj = login()
