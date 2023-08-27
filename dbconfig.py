@@ -84,7 +84,7 @@ class updateDB:
         try:
             mycursor.execute("USE userpass")
             query = "SELECT * FROM userlist WHERE user = %s"
-            mycursor.execute(query, (user, password))
+            mycursor.execute(query, (user,))
             userDB, passwordDB, cryptograhyKeyDB = mycursor.fetchone()
             decryptedPass = cryptoGraphy.decrypt(cryptograhyKeyDB, passwordDB)
             if password == decryptedPass:
@@ -109,7 +109,6 @@ class updateDB:
         return status
         mydb.close()
 
-
     def userDataCheck(self):
         mydb = connectDB()
         mycursor = mydb.cursor()
@@ -124,4 +123,34 @@ class updateDB:
         except errors.DatabaseError as e:
             if e.errno == 1049:
                 return "NoDB"
+        mydb.close()
+
+class updatePassDB():
+    def update(user, webName, url, mail, id, password, note):
+        mydb = connectDB()
+        mycursor = mydb.cursor()
+        
+        try:
+            sql = ("SELECT cryptographyKey FROM userlist WHERE user=%s")
+            mycursor.execute("USE userpass")
+            mycursor.execute(sql, (user,))
+            cryptoGraphyKeys = mycursor.fetchone()
+            cryptoGraphyKey = cryptoGraphyKeys[0]
+
+            encrypted_webName = cryptoGraphy.encrypt(cryptoGraphyKey, webName)
+            encrypted_url = cryptoGraphy.encrypt(cryptoGraphyKey, url)
+            encrypted_mail = cryptoGraphy.encrypt(cryptoGraphyKey, mail)
+            encrypted_id = cryptoGraphy.encrypt(cryptoGraphyKey, id)
+            encrypted_password = cryptoGraphy.encrypt(cryptoGraphyKey, password)
+            dencrypted_note = cryptoGraphy.encrypt(cryptoGraphyKey, note)
+
+            sql = "INSERT INTO passlist(user, webName, url, mail, id, password, note) VALUES(%s,%s, %s, %s, %s, %s, %s)"
+            val = (user, encrypted_webName, encrypted_url, encrypted_mail, encrypted_id, encrypted_password, dencrypted_note)
+            mycursor.execute("USE userpass")
+            mycursor.execute(sql, val)
+
+        except Exception as e:
+            printc(f"[red]{e}[/red]")
+            
+        mydb.commit()
         mydb.close()

@@ -1,4 +1,4 @@
-from dbconfig import createDB, dropDB
+from dbconfig import createDB, dropDB, updatePassDB
 from passGen import passGen, passLen
 from cryptoGraphy import cryptoGraphy
 from rich import print as printc
@@ -15,20 +15,33 @@ class main:
             pass
     
     def logged_in_pg(self,userID):
-        print("[1] Delete all passwords.")
-        print("[2] Sign out.")
-        print("[3] Quit.")
-        userInput = input("Please select an option (1/2/3): ")
+        print("[1] Retrieve a password.")
+        print("[2] Add a new password.")
+        print("[3] Delete all passwords.")
+        print("[4] Sign out.")
+        print("[5] Quit.")
+        userInput = input("Please select an option (1/2/3/4/5): ")
         self.clearTerminal()
         
         if userInput == "1":
+            pass
+        elif userInput == "2":
+            website = input("Website name: ")
+            url = input("Website URL: ")
+            mail = input("Mail: ")
+            id = input("Website User ID: ")
+            password = input("Password: ")
+            note = input("Note(Write 'null' if no note): ")
+            updatePassDB.update(userID, website, url, mail, id, password, note)
+        elif userInput == "3":
             dropDB()
             return True
-        elif userInput == "2":
+        elif userInput == "4":
             printc("[green][ 🗸] Logged out.[/green]")
             return True
-        elif userInput == "3":
+        elif userInput == "4":
             printc("[green][ 🗸] Logged out.[/green]")
+            printc("[bold green]Thank you for using Anom Password Manager. Goodbye![/bold green]")
             return False
         else:
             printc("[yellow] [x]Invalid input.[/yellow]")
