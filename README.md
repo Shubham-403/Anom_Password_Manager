@@ -1,21 +1,29 @@
-# Requirements:
-- Need to have MySQL server in your system.
-- Update your MySQL server "user" and "password" in the dbconfig.py (line 10 and 11 respectively.)
+# Anom Password Manager
 
-# Python Modules (Install by pressing 1 when the program is runned):
-- MySQL connector: python -m pip install MySQL-connector-python.
-- Rich module: python -m pip install rich.
-- Cryptography module: pip install cryptography
-- Maskpass: pip install maskpass
+Welcome to the Anom Password Manager GitHub project!
 
-# File system
-- dbconfig.py is for database connection.
-- passgen.py is used for password generation.
-- cryptoGraphy.py is for encryption and decryption
-- login.py is for login 
-- main.py is for the main program.
-- pipconfig.py is for installing python modules.
+## Requirements:
 
+- Ensure you have a MySQL server installed on your system.
+- Update the "user" and "password" settings for your MySQL server in `dbconfig.py` (line 10 and 11 respectively).
 
-# Common problems:
-- If Database exists and you don't need it anymore you can login and delete all the passwords.
+## Python Modules (Install these modules by running the program):
+
+- Maskpass module: Install with `pip install maskpass`.
+- Rich module: Install with `python -m pip install rich`.
+- Cryptography module: Install with `pip install cryptography`.
+- MySQL connector: Install with `python -m pip install MySQL-connector-python`.
+
+## File System:
+
+- `main.py`: Main program.
+- `login.py`: Manages user logins.
+- `passgen.py`: Generates passwords.
+- `dbconfig.py`: Manages database connections.
+- `pipconfig.py`: Installs required Python modules.
+- `cryptoGraphy.py`: Handles encryption and decryption.
+
+## Common Issues:
+
+- If you no longer need a database, you can log in and delete all stored passwords.
+
