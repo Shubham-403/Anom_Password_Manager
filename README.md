@@ -13,7 +13,7 @@ Welcome to the Anom Password Manager!
 - Rich module: Install with `python -m pip install rich`.
 - Cryptography module: Install with `pip install cryptography`.
 - MySQL connector: Install with `python -m pip install MySQL-connector-python`.
-- Pyperclip: Install with `pip install pyperclip``
+- Pyperclip: Install with `pip install pyperclip`.
 
 ## File System:
 
