@@ -14,6 +14,26 @@ class main:
             os.system("cls")
         except Exception:
             pass
+    def passwordGen(self):
+        runningStatus = True
+        while runningStatus:
+            print("You can choose any one type for a password: ")
+            print(" [1] Password Generator.(More Secure)")
+            print(" [2] Own Password")
+            choice = input("    Please select an option (1/2): ")
+            if choice == "1":
+                print("\n   The suggested password length is 4 to 16 characters, with longer passwords being generally more secure.")
+                length = input("    Password length: ")
+                password = generator.passGen(length)
+                print(f"Generated secure password: {password}")
+                runningStatus = False
+            elif choice == "2":
+                password = input("\nPassword: ")
+                runningStatus = False
+            else:
+                printc("[yellow][!] Invalid input.[/yellow]")
+                runningStatus = True
+        return password
     
     def logged_in_pg(self,userID):
         runningStatus = True
@@ -33,7 +53,7 @@ class main:
                 url = input("Website URL: ")
                 mail = input("Mail: ")
                 id = input("Website User ID: ")
-                password = input("Password: ")
+                password = self.passwordGen()
                 note = input("Note(Write 'null' if no note): ")
                 status = updatePassDB.update(userID, website, url, mail, id, password, note)
                 self.clearTerminal()

@@ -17,19 +17,18 @@ class generator():
     def passGen(passLen):
         password = ""
         l = random.randrange(1, 5)
-        for i in range(passLen):
+        for i in range(int(passLen)):
             if l == 1:
-                lst = l1
+                lst = generator.l1
             elif l == 2:
-                lst = l2
+                lst = generator.l2
             elif l == 3:
-                lst = l3
+                lst = generator.l3
             elif l == 4:
-                lst = l4
+                lst = generator.l4
                 l = 0
             
             password = password + random.choice(lst)
             l+=1
             
         return password
-
