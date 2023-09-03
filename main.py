@@ -4,8 +4,8 @@ from rich import print as printc
 
 from login import login
 from pipconfig import installReq
-from passgen import generator
-from dbconfig import updatePassDB, createDB, dropDB
+from passGen import generator
+from dbconfig import connectionDB, passList
 
 
 class main:    
@@ -46,7 +46,7 @@ class main:
             print("[5] Quit.")
             userInput = input("Please select an option (1/2/3/4/5): ")
             self.clearTerminal()
-            
+            myObj = passList()
             if userInput == "1":
                 pass
             elif userInput == "2":
@@ -56,14 +56,15 @@ class main:
                 id = input("Website User ID: ")
                 password = self.passwordGen()
                 note = input("Note(Write 'null' if no note): ")
-                status = updatePassDB.update(userID, website, url, mail, id, password, note)
+                status = myObj.addPass(userID, website, url, mail, id, password, note)
                 self.clearTerminal()
                 if status:
                     printc("[green][+] New Password added.[/green]")
                 else:
                     printc("[yellow][x] Failed.[/yellow]")
             elif userInput == "3":
-                dropDB()
+                db_connection = connectionDB()
+                db_connection.dropDB()
                 return True
             elif userInput == "4":
                 printc("[green][ 🗸] Logged out.[/green]")
@@ -95,7 +96,8 @@ class main:
             if userInput == "1":
                 obj = installReq()
                 obj.installPackages()
-                createDB()
+                db_connection = connectionDB()
+                db_connection.createDB()
             elif userInput == "2":
                 obj = login()
                 loginStatus, userID = obj.loginAuth()

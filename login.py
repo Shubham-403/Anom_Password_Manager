@@ -1,15 +1,15 @@
 import maskpass
 from rich import print as printc
 
-from dbconfig import updateDB
+from dbconfig import connectionDB, userList
 from cryptoGraphy import cryptoGraphy
 
 class login:
     def loginAuth(self):
-        updater = updateDB()
+        updater = userList()
         logged_in = False
         userID = None
-        result = updater.userDataCheck() 
+        result = updater.does_user_exist() 
         if result == "NoDB":
             userID = "None"
             printc("[red][!] Database doesn't exist. Please install the software from the homepage.[/red]")
@@ -26,7 +26,7 @@ class login:
                     printc("[red][x]Login failed. Invalid User_ID or Master_Password.[/red] (1 attempts remaining)")   
                 userID = input("User_ID: ")                      
                 masterPassword = maskpass.askpass(prompt="Master_Password: ", mask='*')
-                if updater.userAuth(userID, masterPassword) == True:
+                if updater.authUser(userID, masterPassword) == True:
                     logged_in = True
                 else:
                     logged_in = False
@@ -35,8 +35,9 @@ class login:
 
     def createAccount(self):
         status = False
-        updater = updateDB()
-        results = updater.DBCheck()
+        db_connection = connectionDB()
+        myObj = userList()
+        results = db_connection.DBCheck()
         if results:
             while status is False:
                 userID = input("Choose a username: ")
@@ -44,7 +45,7 @@ class login:
                     printc("[red][x] User_ID cannot be empty![/red]")
                 elif " " in userID:
                     printc("[yellow][!] Warning: User_ID cannot contain spaces. Please remove spaces and try again.[/yellow]")
-                elif userID and updater.checkUser(userID):
+                elif userID and myObj.is_username_available(userID):
                     masterPassword = maskpass.askpass(prompt="Create a Master_Password: ", mask='*')
                     if not masterPassword:
                         printc("[red][x] Master_Password cannot be empty![/red]")
@@ -59,7 +60,6 @@ class login:
         if status == True:
             key = cryptoGraphy.genKey()
             encrypted_masterPassword = cryptoGraphy.encrypt(key, masterPassword)
-            updater.update(userID, encrypted_masterPassword, key)
+            myObj.addUser(userID, encrypted_masterPassword, key)
         return status, userID
             
-
