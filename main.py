@@ -1,12 +1,16 @@
-import os
-import pyperclip
 from rich import print as printc
-
-from login import login
 from pipconfig import installReq
-from passGen import generator
-from dbconfig import connectionDB, passList
+try:
+    import os
+    import pyperclip
 
+    from login import login
+    from passGen import generator
+    from dbconfig import connectionDB, passList
+except Exception as e:
+    if e:
+        obj = installReq()
+        obj.installPackages()
 
 class main:    
     def clearTerminal(self):
