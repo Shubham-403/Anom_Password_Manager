@@ -52,7 +52,7 @@ class main:
             self.clearTerminal()
             myObj = passList()
             if userInput == "1":
-                pass
+                myObj.retrievePass()
             elif userInput == "2":
                 website = input("Website name: ")
                 url = input("Website URL: ")

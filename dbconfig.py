@@ -172,6 +172,20 @@ class passList:
     def removePass():
         pass
 
-    def retrievePass():
-        pass
-        
+    def retrievePass(self):
+        mydb = self.db_connection.connectDB()
+        mycursor = mydb.cursor()
+
+        try:
+            sql = "SELECT webName FROM passlist;"
+            mycursor.execute("USE userpass")
+            mycursor.execute(sql)
+            result = mycursor.fe
+            for webNames in result:
+                print(webNames[0])
+
+        except Exception as e:
+            print(e)
+
+myObj = passList()
+myObj.retrievePass()
