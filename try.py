@@ -1,14 +1,14 @@
-import pyperclip
+import subprocess
+from rich import print as printc
 
-text_to_copy = "This is the text you want to copy."
-pyperclip.copy(text_to_copy)
+class installReq():
+    def installPackages(self):
+        packList = ["MySQL-connector-python", "rich", "cryptography", "maskpass", "pyperclip"]
+        for package in packList:
+            try:
+                subprocess.check_call(["pip", "uninstall", package])
+                printc(f"[green]Successfully installed {package}")
+            except subprocess.CalledProcessError as e:
+                printc(f"Error installing {package}: {e}")
 
-# Check if the clipboard content matches the text that was copied
-clipboard_content = pyperclip.paste()
-if clipboard_content == text_to_copy:
-    print("Text has been successfully copied to the clipboard.")
-else:
-    print("Text was not copied to the clipboard.")
-
-# Print the current clipboard content for verification
-print("Clipboard content:", clipboard_content)
+installReq()
